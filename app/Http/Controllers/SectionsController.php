@@ -95,7 +95,7 @@ class SectionsController extends Controller
         
          session()->flash('Edit','edit done successfully');
 
-        return redirect('sections'); ;
+        return redirect('sections'); 
     }
 
     /**

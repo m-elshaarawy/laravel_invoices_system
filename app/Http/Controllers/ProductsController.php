@@ -69,16 +69,41 @@ class ProductsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Products $products)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'Product_name' => 'required|max:50',
+            'section_name'=> 'required',
+            // 'description' => 'required',
+        ],[  //can be changed in lang folder after installing it 
+            'Product_name.required' => 'برجي إدخال إسم المنتج',
+            'section_id.required' => 'برجاء تحديد القسم ',
+            // 'description.required' => 'يرجي كتابة الوصف',
+        ]);
+        $id = Sections::where('section_name',$request->section_name)->first()->id;
+        $section =Products::find($request->id)->update([
+            'product_name'=>$request->section_name,
+            'section_id'=>$id,
+            'description'=>$request->description,
+        ]);
+        
+         session()->flash('Edit','edit done successfully');
+
+        return redirect('products'); 
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Products $products)
+    public function destroy(Request $request)
     {
-        //
+        $id =$request->id;
+        //Sections::findorFail($id)->delete();
+        if((Products::find($id)!=null)){
+            Products::destroy($id);
+            session()->flash('Delete','Deleted successfully');
+        }
+                //back();
+        return redirect('products') ;
     }
 }
