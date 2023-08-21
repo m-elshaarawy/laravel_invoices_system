@@ -5,6 +5,7 @@ use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionsController;
+use App\Models\Invoices;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    //welcome
+    //welcome,register
     return view('auth.login');
 });
 
@@ -36,11 +37,14 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 Route::middleware('auth')->group(function () {
     Route::resource('invoices',InvoicesController::class);
+    Route::get('/section/{id}', [InvoicesController::class, 'getproducts']);
     Route::resource('sections',SectionsController::class);
     Route::resource('products',ProductsController::class);
+
+    Route::get('/{page}',[AdminController::class,'index']);
 });
 // Route::resource('invoices',InvoicesController::class);
 // Route::resource('sections',SectionsController::class);
 // Route::resource('products',ProductsController::class);
 
-Route::get('/{page}',[AdminController::class,'index']);
+

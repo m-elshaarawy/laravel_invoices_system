@@ -13,19 +13,21 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->string('invoice_number');
-            $table->date('invoice_date');
-            $table->date('due_date');
-            $table->string('product');
-            $table->string('section');
-            $table->string('discount');
-            $table->string('rate_vet');
-            $table->decimal('value_vet',8,2);
+            $table->string('invoice_number', 50);
+            $table->date('invoice_Date')->nullable();
+            $table->date('due_date')->nullable();
+            $table->string('product', 50);
+            $table->decimal('amount_collection',8,2)->nullable();;
+            $table->decimal('amount_Commission',8,2);
+            $table->decimal('discount',8,2);
+            $table->decimal('value_VAT',8,2);
+            $table->string('rate_VAT', 999);
             $table->decimal('total',8,2);
-            $table->string('status',50);
-            $table->integer('value_status');
+            $table->string('status', 50);
+            $table->integer('value_Status');
             $table->text('note')->nullable();
-            $table->string('user');
+            $table->date('payment_Date')->nullable();
+            $table->foreignId('section_id')->references('id')->on('sections')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
