@@ -83,10 +83,10 @@
                                         <td>{{ $invoice->due_date }}</td>
                                         <td>{{ $invoice->product }}</td>
                                         <td>{{$invoice->section->section_name}}</td>
-                                        {{-- <td>
-                                            <a href="{{url('invoicesdetails')}}/{{$invoice->id}}">{{$invoice->section->section_name}}</a>
+                                        <td>
+                                            <a href="{{url('invoice_details')}}/{{$invoice->id}}">{{$invoice->section->section_name}}</a>
 
-                                        </td> --}}
+                                        </td>
                                         <td>{{ $invoice->discount }}</td>
                                         <td>{{ $invoice->amount_collection }}</td>
                                         <td>{{ $invoice->amount_Commission }}</td>

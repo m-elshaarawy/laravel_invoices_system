@@ -115,9 +115,13 @@ class InvoicesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Invoices $invoices)
+    public function edit($id)
     {
-        //
+        $invoice=Invoices::where('id',$id)->first();
+        $details=invoices_details::where('invoice_id',$id)->get();
+        $attachments=invoice_attachment::where('attach_invoiceID',$id)->get();
+        return view('invoices.invoice_details',compact('invoice','details','attachments'));
+        //return $invoice;
     }
 
     /**
